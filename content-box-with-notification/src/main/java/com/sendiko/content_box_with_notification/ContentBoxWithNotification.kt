@@ -17,6 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 /**
@@ -35,16 +36,29 @@ fun ContentBoxWithNotification(
     message: String,
     isErrorNotification: Boolean = false,
     isLoading: Boolean = false,
-    content: @Composable (() -> Unit),
+    content: @Composable (() -> Unit),    containerColor: Color = MaterialTheme.colorScheme.tertiaryContainer,
+    errorContainerColor: Color = MaterialTheme.colorScheme.errorContainer,
+    contentColor: Color = MaterialTheme.colorScheme.onTertiaryContainer,
+    contentErrorColor: Color = MaterialTheme.colorScheme.onErrorContainer,
+    loadingContainerColor: Color = MaterialTheme.colorScheme.tertiaryContainer,
+    loadingContentColor: Color = MaterialTheme.colorScheme.onTertiaryContainer
 ) {
     Box {
         content()
         Notification(
             message = message,
             isVisible = message.isNotBlank() && !isLoading,
-            isErrorNotification = isErrorNotification
+            isErrorNotification = isErrorNotification,
+            errorContainerColor = errorContainerColor,
+            containerColor = containerColor,
+            contentColor = contentColor,
+            contentErrorColor = contentErrorColor
         )
-        LoadingIndicator(isLoading = isLoading)
+        LoadingIndicator(
+            isLoading = isLoading,
+            containerColor = loadingContainerColor,
+            contentColor = loadingContentColor
+        )
     }
 }
 
@@ -62,6 +76,10 @@ fun Notification(
     message: String,
     isVisible: Boolean,
     isErrorNotification: Boolean = false,
+    containerColor: Color = MaterialTheme.colorScheme.tertiaryContainer,
+    errorContainerColor: Color = MaterialTheme.colorScheme.errorContainer,
+    contentColor: Color = MaterialTheme.colorScheme.onTertiaryContainer,
+    contentErrorColor: Color = MaterialTheme.colorScheme.onErrorContainer,
 ) {
     AnimatedVisibility(
         visible = isVisible,
@@ -71,12 +89,12 @@ fun Notification(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(if (isErrorNotification) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.surfaceVariant),
+                .background(if (isErrorNotification) errorContainerColor else containerColor),
             content = {
                 Text(
                     text = message,
                     modifier = Modifier.padding(top = 28.dp + 8.dp, end = 8.dp, start = 8.dp, bottom = 16.dp),
-                    color = if (isErrorNotification) MaterialTheme.colorScheme.onError else MaterialTheme.colorScheme.onSurfaceVariant,
+                    color = if (isErrorNotification) contentErrorColor else contentColor,
                 )
             }
         )
@@ -93,6 +111,8 @@ fun Notification(
 @Composable
 fun LoadingIndicator(
     isLoading: Boolean,
+    containerColor: Color = MaterialTheme.colorScheme.tertiaryContainer,
+    contentColor: Color = MaterialTheme.colorScheme.onTertiaryContainer
 ) {
     AnimatedVisibility(
         visible = isLoading,
@@ -102,7 +122,7 @@ fun LoadingIndicator(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.tertiaryContainer),
+                .background(containerColor),
             content = {
                 Row(
                     modifier = Modifier.padding(top = 28.dp + 8.dp, end = 8.dp, start = 8.dp, bottom = 16.dp),
@@ -110,10 +130,14 @@ fun LoadingIndicator(
                 ) {
                     Text(
                         text = "Loading",
-                        color = MaterialTheme.colorScheme.onTertiaryContainer,
+                        color = contentColor
                     )
                     Spacer(modifier = Modifier.width(8.dp))
-                    CircularProgressIndicator(modifier = Modifier.size(24.dp), strokeWidth = 1.dp)
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(24.dp),
+                        strokeWidth = 1.dp,
+                        color = contentColor
+                    )
                 }
             }
         )
