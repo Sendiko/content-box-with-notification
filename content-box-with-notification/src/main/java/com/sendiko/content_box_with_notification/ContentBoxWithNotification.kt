@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.dp
  * @param contentErrorColor color for content text when error.
  * @param loadingContainerColor color for background box when loading.
  * @param loadingContentColor color for content text when loading.
+ * @param textStyle for the text style.
  *
  * @author Sendiko
  *
