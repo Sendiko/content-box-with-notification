@@ -4,6 +4,26 @@ The ContentBoxWithNotification will provide a box that pops down from the top of
 
 <br>
 
+# Add it to your projects
+
+on your libs.versions.toml:
+```toml
+[versions]
+contentBoxWithNotification = "1.1.0" # adjust with latest release
+
+[libraries]
+content-box-with-notification = { module = "com.github.Sendiko:content-box-with-notification", version.ref = "contentBoxWithNotification" }
+```
+on your build.gradle app module: 
+
+```gradle
+    implementation(libs.content.box.with.notification)
+```
+
+Finally, sync your project and it's ready to use!
+
+<br>
+
 # Example
 <br>
 
