@@ -18,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 
 /**
@@ -50,7 +51,8 @@ fun ContentBoxWithNotification(
     contentColor: Color = MaterialTheme.colorScheme.onTertiaryContainer,
     contentErrorColor: Color = MaterialTheme.colorScheme.onErrorContainer,
     loadingContainerColor: Color = MaterialTheme.colorScheme.tertiaryContainer,
-    loadingContentColor: Color = MaterialTheme.colorScheme.onTertiaryContainer
+    loadingContentColor: Color = MaterialTheme.colorScheme.onTertiaryContainer,
+    textStyle: TextStyle = TextStyle()
 ) {
     Box {
         content()
@@ -61,12 +63,14 @@ fun ContentBoxWithNotification(
             errorContainerColor = errorContainerColor,
             containerColor = containerColor,
             contentColor = contentColor,
-            contentErrorColor = contentErrorColor
+            contentErrorColor = contentErrorColor,
+            textStyle = textStyle
         )
         LoadingIndicator(
             isLoading = isLoading,
             containerColor = loadingContainerColor,
-            contentColor = loadingContentColor
+            contentColor = loadingContentColor,
+            textStyle = textStyle
         )
     }
 }
@@ -89,6 +93,7 @@ fun Notification(
     errorContainerColor: Color = MaterialTheme.colorScheme.errorContainer,
     contentColor: Color = MaterialTheme.colorScheme.onTertiaryContainer,
     contentErrorColor: Color = MaterialTheme.colorScheme.onErrorContainer,
+    textStyle: TextStyle = TextStyle()
 ) {
     AnimatedVisibility(
         visible = isVisible,
@@ -104,6 +109,7 @@ fun Notification(
                     text = message,
                     modifier = Modifier.padding(top = 28.dp + 8.dp, end = 8.dp, start = 8.dp, bottom = 16.dp),
                     color = if (isErrorNotification) contentErrorColor else contentColor,
+                    style = textStyle
                 )
             }
         )
@@ -121,7 +127,8 @@ fun Notification(
 fun LoadingIndicator(
     isLoading: Boolean,
     containerColor: Color = MaterialTheme.colorScheme.tertiaryContainer,
-    contentColor: Color = MaterialTheme.colorScheme.onTertiaryContainer
+    contentColor: Color = MaterialTheme.colorScheme.onTertiaryContainer,
+    textStyle: TextStyle = TextStyle()
 ) {
     AnimatedVisibility(
         visible = isLoading,
@@ -139,7 +146,8 @@ fun LoadingIndicator(
                 ) {
                     Text(
                         text = "Loading",
-                        color = contentColor
+                        color = contentColor,
+                        style = textStyle
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     CircularProgressIndicator(
