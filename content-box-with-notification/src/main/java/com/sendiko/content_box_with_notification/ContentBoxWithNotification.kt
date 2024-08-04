@@ -29,6 +29,14 @@ import androidx.compose.ui.unit.dp
  * @param isErrorNotification error notification will show with red color.
  * @param isLoading show loading indicator notification.
  * @param content for the screen content inside.
+ * @param containerColor color for background box.
+ * @param errorContainerColor color for background box when error.
+ * @param contentColor color for content text.
+ * @param contentErrorColor color for content text when error.
+ * @param loadingContainerColor color for background box when loading.
+ * @param loadingContentColor color for content text when loading.
+ *
+ * @author Sendiko
  *
  * */
 @Composable
@@ -36,7 +44,8 @@ fun ContentBoxWithNotification(
     message: String,
     isErrorNotification: Boolean = false,
     isLoading: Boolean = false,
-    content: @Composable (() -> Unit),    containerColor: Color = MaterialTheme.colorScheme.tertiaryContainer,
+    content: @Composable (() -> Unit),
+    containerColor: Color = MaterialTheme.colorScheme.tertiaryContainer,
     errorContainerColor: Color = MaterialTheme.colorScheme.errorContainer,
     contentColor: Color = MaterialTheme.colorScheme.onTertiaryContainer,
     contentErrorColor: Color = MaterialTheme.colorScheme.onErrorContainer,
