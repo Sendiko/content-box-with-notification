@@ -51,7 +51,7 @@ afterEvaluate {
             create<MavenPublication>("maven") {
                 groupId = "com.github.Sendiko"
                 artifactId = "content_box_with_notification"
-                version = "1.1.0"
+                version = "1.1.1"
 
                 from(components["release"])
             }
