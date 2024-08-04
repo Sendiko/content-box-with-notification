@@ -6,6 +6,21 @@ The ContentBoxWithNotification will provide a box that pops down from the top of
 
 # Add it to your projects
 
+if you haven't already, add jitpack to your settings.gradle: 
+
+```gradle
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        maven {
+            url = uri("https://jitpack.io") // this url
+        }
+    }
+}
+```
+
 on your libs.versions.toml:
 ```toml
 [versions]
